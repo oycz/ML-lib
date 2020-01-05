@@ -14,3 +14,4 @@ def loss(X, Y, theta):
     delta = Y - np.dot(X, theta)
     delta_square = delta * delta
     return sum(delta_square)
+
