@@ -1,5 +1,7 @@
 import numpy as np
 import lib.algorithm.loss.least_square as loss
+import lib.algorithm.optimization
+
 from lib.regression.regression import Regression
 
 
