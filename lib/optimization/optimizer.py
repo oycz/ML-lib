@@ -32,7 +32,6 @@ class GradientDescent(Optimizer):
             gradient = self.gradient(theta)
             theta = theta + self.learning_rate * gradient
             func_val = self.func(theta)
-            # print(theta)
             print(func_val)
             tier = tier + 1
         self.theta = theta
