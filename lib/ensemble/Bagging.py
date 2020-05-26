@@ -1,5 +1,6 @@
 import numpy as np
 import pygraphviz as pg
+from lib.preprocessing.read_data import read_file
 
 node_num = 0
 
@@ -31,19 +32,6 @@ class DecisionTree:
             preds += [self.pred(x)]
         return np.array(preds)
 
-
-def read_file(filename):
-    data = open(filename, "r+", encoding="UTF-8-sig")
-    X, Y = [], []
-    for line in data:
-        arr_line = line.split("\n")[0].split(",")
-        X_unit = [1 if i == '1' else -1 for i in arr_line[1:]]
-        Y_unit = 1 if arr_line[0] == '1' else -1
-        X += [X_unit]
-        Y += [Y_unit]
-    X = np.array(X)
-    Y = np.array(Y)
-    return X, Y
 
 def bootstrap(X, Y):
     m = X.shape[0]

@@ -1,6 +1,7 @@
 import numpy as np
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
+from lib.preprocessing.read_data import read_file
 import cv2
 
 
@@ -44,17 +45,6 @@ def calc_loss(points, labels):
     for i in range(t1.shape[0]):
         norm21[i] = np.linalg.norm(t1[i])**2
     return np.sum(norm20) + np.sum(norm21)
-
-
-def read_file(filename):
-    data = open(filename, "r+", encoding="UTF-8-sig")
-    X = []
-    for line in data:
-        X_unit = line.split("\n")[0].split(",")
-        X_unit = [float(n) for n in X_unit]
-        X += [X_unit]
-    X = np.array(X)
-    return X
 
 
 def show(mat, labels):

@@ -1,5 +1,6 @@
 import numpy as np
 from collections import Counter
+from lib.preprocessing.read_data import read_file
 
 
 # Decision tree with IC3 algorithm
@@ -128,20 +129,6 @@ class DecisionTree:
             e = e - p * np.log2(p)
         return e
 
-    @staticmethod
-    def read_file(filename):
-        data = open(filename, "r+", encoding="UTF-8-sig")
-        X, Y = [], []
-        for line in data:
-            arr_line = line.split("\n")[0].split(",")
-            X_unit = arr_line[1:]
-            Y_unit = arr_line[0]
-            X += [X_unit]
-            Y += [Y_unit]
-        X = np.array(X)
-        Y = np.array(Y)
-        return X, Y
-
     # predict a matrix
     @staticmethod
     def predict(dt, X):
@@ -165,8 +152,8 @@ if __name__ == "__main__":
                      'stalk-color-below-ring', 'veil-type', 'veil-color', 'ring-number',
                      'ring-type', 'spore-print-color', 'population', 'habitat'])
 
-    train_X, train_Y = DecisionTree.read_file("train.data")
-    test_X, test_Y = DecisionTree.read_file("test.data")
+    train_X, train_Y = read_file("train.data")
+    test_X, test_Y = read_file("test.data")
 
     t = DecisionTree(train_X, train_Y, feature_names)
     accu = DecisionTree.calc_accu(t, test_X, test_Y)

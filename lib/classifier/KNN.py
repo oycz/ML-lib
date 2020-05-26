@@ -1,5 +1,6 @@
 import numpy as np
 from collections import Counter
+from lib.preprocessing.read_data import read_file
 
 
 class KNN:
@@ -86,9 +87,9 @@ class KNN:
 
 if __name__ == "__main__":
     # read data
-    train_X, train_Y = KNN.read_file("train.data")
-    validation_X, validation_Y = KNN.read_file("validation.data")
-    test_X, test_Y = KNN.read_file("test.data")
+    train_X, train_Y = read_file("train.data")
+    validation_X, validation_Y = read_file("validation.data")
+    test_X, test_Y = read_file("test.data")
 
     k1 = KNN(train_X, train_Y, k=1, normalization=True)
     k5 = KNN(train_X, train_Y, k=5, normalization=True)

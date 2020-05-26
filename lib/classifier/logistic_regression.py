@@ -1,24 +1,6 @@
 import numpy as np
 from collections import Counter
-
-
-def read_file(filename, positive=2):
-    data = open(filename, "r+", encoding="UTF-8-sig")
-    X, Y = [], []
-    for line in data:
-        arr_line = line.split("\n")[0].split(",")
-        X_unit = arr_line[0:-1]
-        X_unit = [float(n) for n in X_unit]
-        Y_unit = float(arr_line[-1])
-        if Y_unit == positive:
-            Y_unit = -1
-        else:
-            Y_unit = 1
-        X += [X_unit]
-        Y += [Y_unit]
-    X = np.array(X)
-    Y = np.array(Y)
-    return X, Y
+from lib.preprocessing.read_data import read_file
 
 
 def none_penalty(lr, lmda):

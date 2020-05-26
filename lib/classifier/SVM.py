@@ -1,5 +1,6 @@
 import numpy as np
 from cvxopt import matrix, solvers
+from lib.preprocessing.read_data import read_file
 
 
 # soft margin SVM (Primal)
@@ -64,26 +65,6 @@ class SVM:
     @staticmethod
     def project(X, W, B):
         return np.dot(X, W) + B
-
-    @staticmethod
-    def read_file(filename):
-        data = open(filename, "r+", encoding="UTF-8-sig")
-        X, Y = [], []
-        for line in data:
-            arr_line = line.split("\n")[0].split(",")
-            X_unit = arr_line[0:-1]
-            X_unit = [float(n) for n in X_unit]
-            Y_unit = float(arr_line[-1])
-
-            # correct Y_unit
-            if Y_unit == 0:
-                Y_unit = -1
-            X += [X_unit]
-            Y += [Y_unit]
-
-        X = np.array(X)
-        Y = np.array(Y)
-        return X, Y
 
 
 def test_accuracy(X_to_test, Y_to_test, SVMs):

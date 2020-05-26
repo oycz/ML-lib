@@ -2,6 +2,7 @@ import numpy as np
 import shelve
 from cvxopt import matrix, solvers
 from collections import Counter
+from lib.preprocessing.read_data import read_file
 
 
 # soft margin SVM (dual from with gaussian kernel)
@@ -153,25 +154,6 @@ class SVM:
             return np.exp(-np.linalg.norm(x1 - x2) ** 2 / (2. * sigma2))
         return gauss_kernel
 
-    @staticmethod
-    def read_file(filename):
-        data = open(filename, "r+", encoding="UTF-8-sig")
-        X, Y = [], []
-        for line in data:
-            arr_line = line.split("\n")[0].split(",")
-            X_unit = arr_line[0:-1]
-            X_unit = [float(n) for n in X_unit]
-            Y_unit = float(arr_line[-1])
-
-            # correct Y_unit
-            if Y_unit == 0:
-                Y_unit = -1
-            X += [X_unit]
-            Y += [Y_unit]
-        X = np.array(X)
-        Y = np.array(Y)
-        return X, Y
-
 
 def distance(hyperplane, point):
     return np.inner(hyperplane.flatten(), point) / np.linalg.norm(hyperplane[1:-1])
@@ -179,9 +161,9 @@ def distance(hyperplane, point):
 
 if __name__ == "__main__":
     # read data
-    train_X, train_Y = SVM.read_file("train.data")
-    validation_X, validation_Y = SVM.read_file("validation.data")
-    test_X, test_Y = SVM.read_file("test.data")
+    train_X, train_Y = read_file("train.data")
+    validation_X, validation_Y = read_file("validation.data")
+    test_X, test_Y = read_file("test.data")
 
     train_len = train_X.shape[0]
     validation_len = validation_X.shape[0]
